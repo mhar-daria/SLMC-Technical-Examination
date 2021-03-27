@@ -25,7 +25,7 @@ class AddressesController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Find Address successfully.',
-                'data' => $users,
+                'data' => $users['data'],
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([

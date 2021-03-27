@@ -7,6 +7,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\PhotoRepository;
 use App\Models\Photo;
 use App\Validators\PhotoValidator;
+use App\Criteria\CustomRequestCriteria;
+use App\Traits\FirstOrFailTrait;
+use App\Presenters\PhotoPresenter;
 
 /**
  * Class PhotoRepositoryEloquent.
@@ -15,6 +18,7 @@ use App\Validators\PhotoValidator;
  */
 class PhotoRepositoryEloquent extends BaseRepository implements PhotoRepository
 {
+    use FirstOrFailTrait;
     /**
      * Specify Model class name
      *
@@ -25,14 +29,16 @@ class PhotoRepositoryEloquent extends BaseRepository implements PhotoRepository
         return Photo::class;
     }
 
-    
+    public function pesenter() {
+        return PhotoPresenter::class;
+    }
 
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

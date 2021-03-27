@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Validators\PostValidator;
 use App\Presenters\PostPresenter;
 use App\Traits\FirstOrFailTrait;
+use App\Criteria\CustomRequestCriteria;
 
 /**
  * Class PostRepositoryEloquent.
@@ -37,7 +38,7 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

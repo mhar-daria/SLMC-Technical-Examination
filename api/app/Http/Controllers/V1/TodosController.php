@@ -43,9 +43,13 @@ class TodosController extends Controller
 
         $todos = $this->repository->skipPresenter(false)->{$parser}();
 
+        $meta = $todos['meta'] ?? [];
+        unset($todos['meta']);
+
         return response()->json([
             'status_code' => 200,
             'data' => $todos,
+            'meta' => $meta,
         ], 200);
     }
 }

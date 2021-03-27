@@ -22,12 +22,12 @@ class PhotoTransformer extends TransformerAbstract
     public function transform(Photo $model)
     {
         return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
+            'id' => (int) $model->id,
+            'albumId' => $model->albumId,
+            'url' => $model->url,
+            'thumbnailUrl' => $model->thumbnailUrl,
+            'created_at' => date('Y-m-d H:i:s', strtotime($model->created_at)),
+            'updated_at' => date('Y-m-d H:i:s', strtotime($model->updated_at)),
         ];
     }
 }

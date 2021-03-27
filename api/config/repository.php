@@ -34,6 +34,7 @@ return [
         'params'     => [
             'include' => 'include'
         ],
+        // 'serializer' => \League\Fractal\Serializer\ArraySerializer::class
         'serializer' => \App\Transformers\CustomArraySerializer::class
     ],
 

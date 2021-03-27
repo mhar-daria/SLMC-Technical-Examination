@@ -36,18 +36,41 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
                 $router->get('/', 'V1\UserPostsController@list');
                 $router->get('{postId}', 'V1\UserPostsController@find');
             });
+
+            $router->group(['prefix' => 'albums'], function ($router) {
+                $router->get('/', 'V1\UserAlbumsController@list');
+                $router->get('{albumId}', 'V1\UserAlbumsController@find');
+            });
         });
     });
 
     // posts
     $router->group(['prefix' => 'posts'], function () use ($router) {
         $router->get('/', 'V1\PostsController@list');
-        $router->get('{postId}', 'V1\PostsController@find');
+
+        $router->group(['prefix' => '{postId}'], function () use ($router) {
+            $router->get('/', 'V1\PostsController@find');
+
+            $router->group([
+                'prefix' => 'comments',
+            ], function () use ($router) {
+                $router->get('/', 'V1\PostCommentsController@list');
+                $router->get('{commentId}', 'V1\PostCommentsController@find');
+            });
+        });
     });
 
     // todos
     $router->group(['prefix' => 'todos'], function () use ($router) {
         $router->get('/', 'V1\TodosController@list');
         $router->get('{todoId}', 'V1\TodosController@find');
+    });
+
+    $router->group(['prefix' => 'albums'], function () use ($router) {
+        $router->get('/', 'V1\AlbumsController@list');
+
+        $router->group(['prefix' => '{albumId}'], function () use ($router) {
+            $router->get('/', 'V1\AlbumsController@find');
+        });
     });
 });

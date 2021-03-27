@@ -3,36 +3,39 @@
 namespace App\Http\Controllers\V1;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
 
-use App\Models\User;
+use Illuminate\Http\Response;
+
+use App\Repositories\AlbumRepository;
 
 /**
  * Users Controller
  */
-class UsersController extends Controller
+class AlbumsController extends Controller
 {
     protected $repository;
 
-    public function __construct(UserRepository $repository) {
+    public function __construct(AlbumRepository $repository) {
         $this->repository = $repository;
     }
 
-    public function find($userId) {
+    public function find($albumId) {
         $parser = $this->resultParser();
 
         try {
-            $users = $this->repository->find($userId);
+            $album = $this->repository->firstOrFail([
+                'id' => $albumId,
+            ]);
 
             return response()->json([
                 'status_code' => 200,
-                'message' => 'Find User successfully.',
-                'data' => $users,
+                'message' => 'Find album successfully.',
+                'data' => $album,
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status_code' => 400,
-                'message' => 'User not found.',
+                'message' => 'Album not found.',
             ], 400);
         } catch (Exception $e) {
             return response()->json([
@@ -45,21 +48,22 @@ class UsersController extends Controller
     public function list() {
         $parser = $this->resultParser();
 
-        $users = $this->repository->{$parser}();
+        $albums = $this->repository->{$parser}();
 
-        $meta = $users['meta'];
-        unset($users['meta']);
+        $meta = $albums['meta'] ?? [];
+        unset($albums['meta']);
 
-        return response([
+        return Response([
             'status_code' => 200,
-            'message' => 'Users lists.',
-            'data' => $users,
+            'message' => 'Albums lists.',
+            'data' => $albums,
             'meta' => $meta,
         ], 200);
 
-        // return response()->json([
-        //     'status_code' => 200,
-        //     'data' => $users,
-        // ], 200);
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'Albums lists.',
+            'data' => $albums,
+        ], 200);
     }
 }

@@ -8,6 +8,8 @@ use App\Repositories\UserRepository;
 use App\Models\User;
 use App\Validators\UserValidator;
 use App\Presenters\UserPresenter;
+use App\Criteria\CustomRequestCriteria;
+use App\Traits\FirstOrFailTrait;
 
 /**
  * Class UserRepositoryEloquent.
@@ -16,6 +18,8 @@ use App\Presenters\UserPresenter;
  */
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
+    use FirstOrFailTrait;
+
     /**
      * Specify Model class name
      *
@@ -35,7 +39,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

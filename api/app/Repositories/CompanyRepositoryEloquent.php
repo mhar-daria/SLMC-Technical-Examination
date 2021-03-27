@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Validators\CompanyValidator;
 use App\Presenters\CompanyPresenter;
 use App\Traits\FirstOrFailTrait;
+use App\Criteria\CustomRequestCriteria;
 
 /**
  * Class CompanyRepositoryEloquent.
@@ -37,7 +38,7 @@ class CompanyRepositoryEloquent extends BaseRepository implements CompanyReposit
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

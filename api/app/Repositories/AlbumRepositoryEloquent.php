@@ -7,6 +7,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AlbumRepository;
 use App\Models\Album;
 use App\Validators\AlbumValidator;
+use App\Criteria\CustomRequestCriteria;
+use App\Traits\FirstOrFailTrait;
+use App\Presenters\AlbumPresenter;
 
 /**
  * Class AlbumRepositoryEloquent.
@@ -15,6 +18,7 @@ use App\Validators\AlbumValidator;
  */
 class AlbumRepositoryEloquent extends BaseRepository implements AlbumRepository
 {
+    use FirstOrFailTrait;
     /**
      * Specify Model class name
      *
@@ -25,14 +29,16 @@ class AlbumRepositoryEloquent extends BaseRepository implements AlbumRepository
         return Album::class;
     }
 
-    
+    public function presenter() {
+        return AlbumPresenter::class;
+    }
 
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

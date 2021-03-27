@@ -7,6 +7,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\CommentRepository;
 use App\Models\Comment;
 use App\Validators\CommentValidator;
+use App\Criteria\CustomRequestCriteria;
+use App\Presenters\CommentPresenter;
+use App\Traits\FirstOrFailTrait;
 
 /**
  * Class CommentRepositoryEloquent.
@@ -15,6 +18,7 @@ use App\Validators\CommentValidator;
  */
 class CommentRepositoryEloquent extends BaseRepository implements CommentRepository
 {
+    use FirstOrFailTrait;
     /**
      * Specify Model class name
      *
@@ -25,14 +29,16 @@ class CommentRepositoryEloquent extends BaseRepository implements CommentReposit
         return Comment::class;
     }
 
-    
+    public function presenter() {
+        return CommentPresenter::class;
+    }
 
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

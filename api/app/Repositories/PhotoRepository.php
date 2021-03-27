@@ -11,5 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface PhotoRepository extends RepositoryInterface
 {
-    //
+    public function model();
+    public function presenter();
 }

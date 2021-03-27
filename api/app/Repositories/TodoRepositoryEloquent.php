@@ -9,6 +9,7 @@ use App\Models\Todo;
 use App\Validators\TodoValidator;
 use App\Presenters\TodoPresenter;
 use App\Traits\FirstOrFailTrait;
+use App\Criteria\CustomRequestCriteria;
 
 /**
  * Class TodoRepositoryEloquent.
@@ -38,7 +39,7 @@ class TodoRepositoryEloquent extends BaseRepository implements TodoRepository
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

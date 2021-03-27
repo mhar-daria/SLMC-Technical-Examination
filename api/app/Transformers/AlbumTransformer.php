@@ -12,6 +12,8 @@ use App\Models\Album;
  */
 class AlbumTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = ['photos'];
+
     /**
      * Transform the Album entity.
      *
@@ -22,12 +24,19 @@ class AlbumTransformer extends TransformerAbstract
     public function transform(Album $model)
     {
         return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
+            'id' => (int) $model->id,
+            'userId' => $model->userId,
+            'title' => $model->title,
+            'created_at' => date('Y-m-d H:i:s', strtotime($model->created_at)),
+            'updated_at' => date('Y-m-d H:i:s', strtotime($model->updated_at)),
         ];
+    }
+
+    public function includePhotos(Album $model) {
+        if ($model->photos) {
+            return $this->collection($model->photos, new PhotoTransformer());
+        }
+
+        return $this->null();
     }
 }

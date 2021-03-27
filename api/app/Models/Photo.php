@@ -29,4 +29,15 @@ class Photo extends Model implements Presentable, Transformable{
         'url',
         'thumbnailUrl',
     ];
+
+    public function transform() {
+        return [
+            'id' => (int) $this->id,
+            'albumId' => $this->albumId,
+            'url' => $this->url,
+            'thumbnailUrl' => $this->thumbnailUrl,
+            'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
+            'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at)),
+        ];
+    }
 }

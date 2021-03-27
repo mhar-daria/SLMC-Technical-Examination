@@ -9,6 +9,7 @@ use App\Models\Address;
 use App\Validators\AddressValidator;
 use App\Presenters\AddressPresenter;
 use App\Traits\FirstOrFailTrait;
+use App\Criteria\CustomRequestCriteria;
 
 /**
  * Class AddressRepositoryEloquent.
@@ -38,7 +39,7 @@ class AddressRepositoryEloquent extends BaseRepository implements AddressReposit
      */
     public function boot()
     {
-        $this->pushCriteria(app(RequestCriteria::class));
+        $this->pushCriteria(app(CustomRequestCriteria::class));
     }
     
 }

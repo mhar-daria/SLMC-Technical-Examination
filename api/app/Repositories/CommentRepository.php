@@ -11,5 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface CommentRepository extends RepositoryInterface
 {
-    //
+    public function presenter();
+    public function model();
 }

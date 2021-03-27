@@ -28,12 +28,22 @@ class Album extends Model implements Presentable, Transformable {
      *
      * @return \App\Models\Photo
      */
-    public function photo() {
-        return $this->hasOne(Photo::class, 'albumId');
+    public function photos() {
+        return $this->hasMany(Photo::class, 'albumId');
     }
 
     protected $fillable = [
         'userId',
         'title',
     ];
+
+    public function transform() {
+        return [
+            'id' => (int) $this->id,
+            'userId' => $this->userId,
+            'title' => $this->title,
+            'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
+            'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at)),
+        ];
+    }
 }
