@@ -1,0 +1,3 @@
+CREATE USER IF NOT EXISTS 'xyz'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE DATABASE IF NOT EXISTS xyz;
+GRANT ALL PRIVILEGES ON DATABASE xyzi TO xyz
