@@ -4,6 +4,10 @@
 
 ## Prerequisites
 
+Since I implement this using docker you need
+
+> add `127.0.0.1 db` to your host file.
+
 ### Docker
 
 Download and install the [Docker](https://www.docker.com/get-started).
@@ -17,6 +21,8 @@ Download and install the [Docker](https://www.docker.com/get-started).
 ### API
 
 > PORT 7771
+
+> run `cd api && composer install`
 
 ### APP
 

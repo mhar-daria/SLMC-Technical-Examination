@@ -94,11 +94,20 @@ $app->configure('app');
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->configure('repository');
+$app->configure('database');
 $app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
 $app->register(Laravel\Tinker\TinkerServiceProvider::class);
+$app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
 $app->register(
     Prettus\Repository\Providers\RepositoryServiceProvider::class,
-    $app->bind(\App\Repositories\UserRepository::class, \App\Repositories\UserRepositoryEloquent::class)
+    $app->bind(\App\Repositories\UserRepository::class, \App\Repositories\UserRepositoryEloquent::class),
+    $app->bind(\App\Repositories\PostRepository::class, \App\Repositories\PostRepositoryEloquent::class),
+    $app->bind(\App\Repositories\CommentRepository::class, \App\Repositories\CommentRepositoryEloquent::class),
+    $app->bind(\App\Repositories\AlbumRepository::class, \App\Repositories\AlbumRepositoryEloquent::class),
+    $app->bind(\App\Repositories\PhotoRepository::class, \App\Repositories\PhotoRepositoryEloquent::class),
+    $app->bind(\App\Repositories\AddressRepository::class, \App\Repositories\AddressRepositoryEloquent::class),
+    $app->bind(\App\Repositories\CompanyRepository::class, \App\Repositories\CompanyRepositoryEloquent::class),
+    $app->bind(\App\Repositories\TodoRepository::class, \App\Repositories\TodoRepositoryEloquent::class)
 );
 
 /*
