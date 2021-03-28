@@ -2,6 +2,8 @@ FROM php:7.4-fpm
 
 USER root
 
+WORKDIR /var/www/api
+
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -13,12 +15,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 
-WORKDIR /var/www/api
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+RUN getent group www || groupadd -g 1000 www
+RUN id -u www &> /dev/null || useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /var/www/api
 
