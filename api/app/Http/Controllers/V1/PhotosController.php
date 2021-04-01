@@ -3,36 +3,34 @@
 namespace App\Http\Controllers\V1;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
-
-use App\Models\User;
+use App\Repositories\PhotoRepository;
 
 /**
- * Users Controller
+ * Comments Controller
  */
-class UsersController extends Controller
+class PhotosController extends Controller
 {
     protected $repository;
 
-    public function __construct(UserRepository $repository) {
+    public function __construct(PhotoRepository $repository) {
         $this->repository = $repository;
     }
 
-    public function find($userId) {
+    public function find($photoId) {
         $parser = $this->resultParser();
 
         try {
-            $users = $this->repository->find($userId);
+            $photos = $this->repository->find($photoId);
 
             return response()->json([
                 'status_code' => 200,
-                'message' => 'Find User successfully.',
-                'data' => $users,
+                'message' => 'Find Photo successfully.',
+                'data' => $photos,
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status_code' => 400,
-                'message' => 'User not found.',
+                'message' => 'Photo not found.',
             ], 400);
         } catch (Exception $e) {
             return response()->json([
@@ -45,21 +43,15 @@ class UsersController extends Controller
     public function list() {
         $parser = $this->resultParser();
 
-        $users = $this->repository->{$parser}();
+        $photos = $this->repository->{$parser}();
 
-        $meta = $users['meta'] ?? [];
-        unset($users['meta']);
+        $meta = $photos['meta'] ?? [];
+        unset($photos['meta']);
 
-        return response([
+        return response()->json([
             'status_code' => 200,
-            'message' => 'Users lists.',
-            'data' => $users,
+            'data' => $photos,
             'meta' => $meta,
         ], 200);
-
-        // return response()->json([
-        //     'status_code' => 200,
-        //     'data' => $users,
-        // ], 200);
     }
 }

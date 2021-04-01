@@ -3,36 +3,34 @@
 namespace App\Http\Controllers\V1;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
-
-use App\Models\User;
+use App\Repositories\CommentRepository;
 
 /**
- * Users Controller
+ * Comments Controller
  */
-class UsersController extends Controller
+class CommentsController extends Controller
 {
     protected $repository;
 
-    public function __construct(UserRepository $repository) {
+    public function __construct(CommentRepository $repository) {
         $this->repository = $repository;
     }
 
-    public function find($userId) {
+    public function find($commentId) {
         $parser = $this->resultParser();
 
         try {
-            $users = $this->repository->find($userId);
+            $comments = $this->repository->find($commentId);
 
             return response()->json([
                 'status_code' => 200,
-                'message' => 'Find User successfully.',
-                'data' => $users,
+                'message' => 'Find Comment successfully.',
+                'data' => $comments,
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status_code' => 400,
-                'message' => 'User not found.',
+                'message' => 'Comment not found.',
             ], 400);
         } catch (Exception $e) {
             return response()->json([
@@ -45,21 +43,15 @@ class UsersController extends Controller
     public function list() {
         $parser = $this->resultParser();
 
-        $users = $this->repository->{$parser}();
+        $comments = $this->repository->{$parser}();
 
-        $meta = $users['meta'] ?? [];
-        unset($users['meta']);
+        $meta = $comments['meta'] ?? [];
+        unset($comments['meta']);
 
-        return response([
+        return response()->json([
             'status_code' => 200,
-            'message' => 'Users lists.',
-            'data' => $users,
+            'data' => $comments,
             'meta' => $meta,
         ], 200);
-
-        // return response()->json([
-        //     'status_code' => 200,
-        //     'data' => $users,
-        // ], 200);
     }
 }

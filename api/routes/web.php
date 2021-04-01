@@ -60,6 +60,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         });
     });
 
+    $router->group(['prefix' => 'comments'], function () use ($router) {
+        $router->get('/', 'V1\CommentsController@list');
+
+        $router->group(['prefix' => '{commentId}'], function () use ($router) {
+            $router->get('/', 'V1\CommentsController@find');
+        });
+    });
+
     // todos
     $router->group(['prefix' => 'todos'], function () use ($router) {
         $router->get('/', 'V1\TodosController@list');
@@ -71,6 +79,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
         $router->group(['prefix' => '{albumId}'], function () use ($router) {
             $router->get('/', 'V1\AlbumsController@find');
+        });
+    });
+
+    $router->group(['prefix' => 'photos'], function () use ($router) {
+        $router->get('/', 'V1\PhotosController@list');
+
+        $router->group(['prefix' => '{photoId}'], function () use ($router) {
+            $router->get('/', 'V1\PhotosController@find');
         });
     });
 });
