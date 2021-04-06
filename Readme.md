@@ -1,42 +1,89 @@
+
 # XYZ Enterprise
 
-> Optionally I add Docker for easy testing and installation
+## Installation
 
-## Prerequisites
+**PHP**
 
-Since I implement this using docker you need
+-   PHP >= 7.1.3
+-   OpenSSL PHP Extension
+-   PDO PHP Extension
+-   Mbstring PHP Extension
 
-> add `127.0.0.1 db` to your host file.
+**NOTE**: In PHP `<7.4` you may encounter `caching_sha2_password` error when connecting to mysql just make sure your user is using the native mysql password. This application is also tested in PHP 7.4.
 
-### Docker
+**MySQL**
 
-Download and install the [Docker](https://www.docker.com/get-started).
+Make sure you have mysql server on your machine.
 
-## Install
+>:v8.0
 
-> run `bin/install`
 
-## Install manually
+*Optionally Run*
 
-### API
+```
+CREATE USER IF NOT EXISTS 'xyz'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE DATABASE IF NOT EXISTS xyz;
+GRANT ALL PRIVILEGES ON *.* TO 'xyz'@'%'
+```
 
-> PORT 7771
+*if you already have a user and not sure if identified with `mysql_native_password` run this instead.
 
-> run `cd api && composer install`
+```
+ALTER USER '`<user|xyz>`'@'`<host|%>`' IDENTIFIED WITH mysql_native_password BY 'password';
+```
 
-### APP
+or used an existing user just make sure this user is using the `mysql native password`
 
-> PORT 7770
+**default credentials**
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lumen
+DB_USERNAME=lumen
+DB_PASSWORD=password
+DB_STRICT_MODE=false
+```
 
-### Database
+Feel free to update the `.env` file.
 
-> DB_NAME `xyz`
-> DB_USER xyz
-> DB_PASSWORD password
+**Node**
 
-## Starting the application
+> v14.16.0
 
-> You can run it using `bin/install`.
+*RUN*
+> npm install -g yarn
+
+## Start
+
+**API**
+
+```
+HOST: localhost
+PORT: 7771
+BASE_URL: http://localhost:7771/api/v1/
+```
+
+> Goto [basefolder]/api
+> Run `php -S localhost:7771 -t public`
+
+**APP**
+
+```
+HOST: localhost
+PORT: 7770
+BASE_URL: http://localhost:7770/
+```
+
+> Goto [basefolder]/app
+
+> Run `yarn install && yarn start`
+
+**NOTE** If you don't have `yarn` install it using.
+
+> npm install -g yarn
+
 
 ## Api Commands
 
