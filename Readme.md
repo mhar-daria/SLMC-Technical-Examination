@@ -104,9 +104,11 @@ Additional commands will fetch data from the base url and save the records to da
 
 ## Available API Endpoints
 
-> /api/v1/users
-> /api/v1/posts
-> /api/v1/coments
-> /api/v1/todos
-> /api/v1/photos
-> /api/v1/albums
+| Path             | Description                            |
+| ---------------- | -------------------------------------- |
+| `/api/v1/users`    | List Users    |
+| `/api/v1/posts`    | List Posts    |
+| `/api/v1/coments` | List Comments |
+| `/api/v1/todos`   | List Todos |
+| `/api/v1/photos`   | List Photos |
+| `/api/v1/albums`    | List Albums |
