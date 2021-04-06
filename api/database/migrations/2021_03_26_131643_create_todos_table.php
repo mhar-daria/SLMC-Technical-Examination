@@ -14,14 +14,14 @@ class CreateTodosTable extends Migration
     public function up()
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('userId');
+            $table->uuid('id')->primary();
+            $table->uuid('userId');
             $table->string('title');
             $table->boolean('completed')->default(false);
             $table->softDeletes();
             $table->timestamps();
 
-            // $table->foreign('userId')->references('id')->on('users');
+            $table->foreign('userId')->references('id')->on('users');
         });
     }
 

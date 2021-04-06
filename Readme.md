@@ -110,3 +110,17 @@ Additional commands will fetch data from the base url and save the records to da
 > /api/v1/todos
 > /api/v1/photos
 > /api/v1/albums
+
+### Response Codes
+
+**Failed Request**
+
+- `400` - Bad Request
+- `422` - Unprocessable Entity
+- `403` - Validation Failed
+
+**Success request**
+
+- `200` - Success
+- `201` - Created
+- `204` - No Content

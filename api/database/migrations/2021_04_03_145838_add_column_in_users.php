@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlbumsTable extends Migration
+class AddColumnInUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateAlbumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('userId');
-            $table->string('name');
-            $table->timestamps();
-
-            $table->foreign('userId')->references('id')->on('users');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 
@@ -30,6 +25,8 @@ class CreateAlbumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

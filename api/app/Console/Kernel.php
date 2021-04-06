@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\FetchAlbums::class,
         \App\Console\Commands\FetchPhotos::class,
         \App\Console\Commands\FetchTodos::class,
+        \App\Console\Commands\MakePresenter::class,
     ];
 
     /**

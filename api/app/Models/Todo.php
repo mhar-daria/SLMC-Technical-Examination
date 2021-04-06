@@ -8,12 +8,12 @@ use Prettus\Repository\Traits\PresentableTrait;
 
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Traits\UuidTrait;
 
 class Todo extends Model implements Presentable, Transformable{
-    use PresentableTrait, TransformableTrait;
+    use PresentableTrait, TransformableTrait, UuidTrait;
 
-    // use HasFactory;
     /**
      * User
      *

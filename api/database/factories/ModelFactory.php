@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\User;
+use App\Models\Account;
 use App\Models\Address;
 use App\Models\Company;
 use App\Models\Album;
@@ -10,6 +13,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Todo;
+
 use Faker\Generator as Faker;
 
 /*
@@ -37,6 +41,17 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEMail,
         'phone' => $faker->phoneNumber,
         'website' => $faker->url,
+    ];
+});
+
+$factory->define(Account::class, function (Faker $faker) {
+    $salt = Str::random(10);
+    $rawPassword = Str::random(20);
+    $hashedPassword = Hash::make("{$rawPassword}.{$salt}");
+
+    return [
+        'salt' => $salt,
+        'password' => $hashedPassword,
     ];
 });
 

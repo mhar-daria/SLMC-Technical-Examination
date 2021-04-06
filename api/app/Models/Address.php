@@ -9,9 +9,6 @@ use Prettus\Repository\Traits\PresentableTrait;
 
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use App\Observers\AddressObserver;
 
 class Address extends Model implements Presentable, Transformable {
     use PresentableTrait, TransformableTrait;
@@ -38,7 +35,17 @@ class Address extends Model implements Presentable, Transformable {
     public static function boot() {
         parent::boot();
 
-        Address::observe(AddressObserver::class);
+        static::creating(function ($model) {
+            if (isset($model->geo) && is_array($model->geo)) {
+                $model->geo = json_encode($model->geo);
+            }
+        });
+
+        static::saving(function ($model) {
+            if (isset($model->geo) && is_array($model->geo)) {
+                $model->geo = json_encode($model->geo);
+            }
+        });
     }
 
     public function trasnform() {

@@ -79,9 +79,9 @@ $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ $app->middleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->configure('repository');
 $app->configure('database');
@@ -113,6 +113,12 @@ $app->register(
     $app->bind(\App\Repositories\CompanyRepository::class, \App\Repositories\CompanyRepositoryEloquent::class),
     $app->bind(\App\Repositories\TodoRepository::class, \App\Repositories\TodoRepositoryEloquent::class)
 );
+
+// tymon jwt-auth
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+
+// form request service provider
+$app->register(App\Providers\FormRequestServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

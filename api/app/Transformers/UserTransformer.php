@@ -13,7 +13,8 @@ use App\Models\User;
 class UserTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = ['address', 'company'];
-    protected $availableIncludes = ['albums', 'posts'];
+    protected $availableIncludes = ['albums', 'posts', 'account'];
+
     /**
      * Transform the User entity.
      *
@@ -62,5 +63,13 @@ class UserTransformer extends TransformerAbstract
             return $this->collection($model->albums, new AlbumTransformer());
         }
         return [];
+    }
+
+    public function includeAccount(User $model) {
+        if ($model->account) {
+            return $this->item($model->account, new AccountTransformer());
+        }
+
+        return $this->null();
     }
 }

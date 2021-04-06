@@ -9,12 +9,42 @@ use Prettus\Repository\Traits\PresentableTrait;
 
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model implements Presentable, Transformable {
-    use TransformableTrait, PresentableTrait;
-    // use HasFactory;
+use App\Traits\UuidTrait;
+
+use Tymon\JWTAuth\Contracts\JWTSubject;
+// use Illuminate\Notifications\Notifiable;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+// use Illuminate\Contracts\Auth\Access\Authorizeable;
+
+class User extends Model implements Presentable, Transformable, JWTSubject {
+    use TransformableTrait, PresentableTrait, UuidTrait, Authenticatable;
+
+    /**
+     * @return mixed
+     */
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims() {
+        return [];
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->account->password;
+    }
+
     /**
      * Company
      *
@@ -51,6 +81,9 @@ class User extends Model implements Presentable, Transformable {
         return $this->hasOne(Address::class, 'userId');
     }
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name',
         'username',
@@ -59,6 +92,9 @@ class User extends Model implements Presentable, Transformable {
         'website',
     ];
 
+    /**
+     * @var array
+     */
     public function transform() {
         return [
             'id' => (int) $this->id,

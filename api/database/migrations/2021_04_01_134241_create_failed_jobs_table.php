@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompaniesTable extends Migration
+class CreateFailedJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->string('name');
-            $table->text('catchPhrase');
-            $table->text('bs');
-            $table->uuid('userId');
-            $table->softDeletes();
+        Schema::create('failed_jobs', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
             $table->timestamps();
-
-            $table->foreign('userId')->references('id')->on('users');
         });
     }
 
@@ -32,6 +30,6 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('failed_jobs');
     }
 }

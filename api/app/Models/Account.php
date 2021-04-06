@@ -12,38 +12,34 @@ use Prettus\Repository\Traits\TransformableTrait;
 
 use App\Traits\UuidTrait;
 
-class Album extends Model implements Presentable, Transformable {
-    use PresentableTrait, TransformableTrait, UuidTrait;
+class Account extends Model implements Presentable, Transformable {
+    use TransformableTrait, PresentableTrait, UuidTrait;
 
-    // use HasFactory;
     /**
-     * User
-     *
-     * @return \App\Models\User
+     * This will return user account
+     * @return mixed
      */
     public function user() {
-        return $this->belongsTo(User::class, 'userId');
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Photo
-     *
-     * @return \App\Models\Photo
+     * @var array
      */
-    public function photos() {
-        return $this->hasMany(Photo::class, 'albumId');
-    }
-
     protected $fillable = [
-        'userId',
-        'title',
+        'password',
+        'salt',
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
+    /**
+     * @var array
+     */
     public function transform() {
         return [
-            'id' => (int) $this->id,
-            'userId' => $this->userId,
-            'title' => $this->title,
             'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
             'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at)),
         ];

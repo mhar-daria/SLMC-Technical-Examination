@@ -10,8 +10,10 @@ use Prettus\Repository\Traits\PresentableTrait;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
+use App\Traits\UuidTrait;
+
 class Post extends Model implements Presentable, Transformable {
-    use PresentableTrait, TransformableTrait;
+    use PresentableTrait, TransformableTrait, UuidTrait;
 
     // use HasFactory;
     /**
