@@ -1,4 +1,5 @@
 
+
 # XYZ Enterprise
 
 ## Installation
@@ -66,7 +67,9 @@ BASE_URL: http://localhost:7771/api/v1/
 ```
 
 > RUN cp api/.env.local api/.env
+
 > Goto [basefolder]/api
+
 > Run `php -S localhost:7771 -t public`
 
 **APP**
@@ -78,6 +81,7 @@ BASE_URL: http://localhost:7770/
 ```
 
 > RUN cp app/.env.local app/.env
+
 > Goto [basefolder]/app
 
 > Run `yarn install && yarn start`
