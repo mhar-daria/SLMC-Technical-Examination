@@ -22,15 +22,15 @@ Make sure you have mysql server on your machine.
 *Optionally Run*
 
 ```
-CREATE USER IF NOT EXISTS 'xyz'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-CREATE DATABASE IF NOT EXISTS xyz;
-GRANT ALL PRIVILEGES ON *.* TO 'xyz'@'%'
+CREATE USER IF NOT EXISTS 'lumen'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE DATABASE IF NOT EXISTS lumen;
+GRANT ALL PRIVILEGES ON *.* TO 'lumen'@'%'
 ```
 
 *if you already have a user and not sure if identified with `mysql_native_password` run this instead.
 
 ```
-ALTER USER '`<user|xyz>`'@'`<host|%>`' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER '`<user|lumen>`'@'`<host|%>`' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
 
 or used an existing user just make sure this user is using the `mysql native password`
